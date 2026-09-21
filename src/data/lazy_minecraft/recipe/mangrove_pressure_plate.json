@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": ["XX"],
+  "key": {
+    "X": "#minecraft:mangrove_logs"
+  },
+  "result": {
+    "id": "minecraft:mangrove_pressure_plate",
+    "count": 4
+  }
+}

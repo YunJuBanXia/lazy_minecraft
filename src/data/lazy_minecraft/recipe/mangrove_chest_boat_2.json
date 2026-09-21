@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " Y ",
+    "XYX",
+    "XXX"
+  ],
+  "key": {
+    "X": "minecraft:mangrove_planks",
+    "Y": "#minecraft:logs"
+  },
+  "result": {
+    "id": "minecraft:mangrove_chest_boat",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XYX",
+    "XXX"
+  ],
+  "key": {
+    "X": "minecraft:bamboo_planks",
+    "Y": "minecraft:chest"
+  },
+  "result": {
+    "id": "minecraft:bamboo_chest_raft",
+    "count": 1
+  }
+}

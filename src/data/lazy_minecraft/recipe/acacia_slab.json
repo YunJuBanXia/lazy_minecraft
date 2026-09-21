@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "XXX"
+  ],
+  "key": {
+    "X": "#minecraft:acacia_logs"
+  },
+  "result": {
+    "id": "minecraft:acacia_slab",
+    "count": 24
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": ["XX"],
+  "key": {
+    "X": "#minecraft:crimson_stems"
+  },
+  "result": {
+    "id": "minecraft:crimson_pressure_plate",
+    "count": 4
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "X X",
+    "X X",
+    "XXX"
+  ],
+  "key": {
+    "X": "#minecraft:planks"
+  },
+  "result": {
+    "id": "minecraft:composter",
+    "count": 2
+  }
+}

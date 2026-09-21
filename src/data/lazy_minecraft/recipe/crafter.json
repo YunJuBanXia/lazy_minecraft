@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "XXX",
+    "XYX",
+    "ZVZ"
+  ],
+  "key": {
+    "X": "minecraft:iron_ingot",
+    "Y": "#minecraft:logs",
+    "Z": "minecraft:redstone",
+    "V": "minecraft:dropper"
+  },
+  "result": {
+    "id": "minecraft:crafter",
+    "count": 1
+  }
+}

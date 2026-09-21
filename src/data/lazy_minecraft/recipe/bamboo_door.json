@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "XX",
+    "XX",
+    "XX"
+  ],
+  "key": {
+    "X": "#minecraft:bamboo_blocks"
+  },
+  "result": {
+    "id": "bamboo_door",
+    "count": 2
+  }
+}

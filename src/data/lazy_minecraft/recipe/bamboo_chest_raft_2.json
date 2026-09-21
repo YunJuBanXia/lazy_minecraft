@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " Y ",
+    "XYX",
+    "XXX"
+  ],
+  "key": {
+    "X": "minecraft:bamboo_planks",
+    "Y": "#minecraft:logs"
+  },
+  "result": {
+    "id": "minecraft:bamboo_chest_raft",
+    "count": 1
+  }
+}

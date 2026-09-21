@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "XX",
+    "XX",
+    "XX"
+  ],
+  "key": {
+    "X": "#minecraft:warped_stems"
+  },
+  "result": {
+    "id": "minecraft:warped_door",
+    "count": 12
+  }
+}

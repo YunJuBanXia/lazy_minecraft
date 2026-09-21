@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "XXX",
+    "XYX",
+    "XXX"
+  ],
+  "key": {
+    "X": "#minecraft:planks",
+    "Y": "minecraft:tripwire_hook"
+  },
+  "result": {
+    "id": "minecraft:trapped_chest",
+    "count": 1
+  }
+}

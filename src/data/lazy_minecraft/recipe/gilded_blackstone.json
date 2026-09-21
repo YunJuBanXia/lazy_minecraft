@@ -1,0 +1,17 @@
+{
+  "type": "crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "XXX",
+    "XYX",
+    "XXX"
+  ],
+  "key": {
+    "X": "minecraft:gold_nugget",
+    "Y": "minecraft:blackstone"
+  },
+  "result": {
+    "id": "minecraft:gilded_blackstone",
+    "count": 1
+  }
+}

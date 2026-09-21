@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "X X",
+    "X X"
+  ],
+  "key": {
+    "X": "#minecraft:logs"
+  },
+  "result": {
+    "id": "minecraft:barrel",
+    "count": 4
+  }
+}

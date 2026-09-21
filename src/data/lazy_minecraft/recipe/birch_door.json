@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "XX",
+    "XX",
+    "XX"
+  ],
+  "key": {
+    "X": "#minecraft:birch_logs"
+  },
+  "result": {
+    "id": "minecraft:birch_door",
+    "count": 12
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "X X",
+    "X X",
+    "XXX"
+  ],
+  "key": {
+    "X": "minecraft:iron_block"
+  },
+  "result": {
+    "id": "minecraft:cauldron",
+    "count": 9
+  }
+}

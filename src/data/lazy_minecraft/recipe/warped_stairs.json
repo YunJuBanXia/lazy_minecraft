@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "X  ",
+    "XX ",
+    "XXX"
+  ],
+  "key": {
+    "X": "#minecraft:warped_stems"
+  },
+  "result": {
+    "id": "minecraft:warped_stairs",
+    "count": 16
+  }
+}

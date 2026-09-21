@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XYX",
+    "XXX"
+  ],
+  "key": {
+    "X": "minecraft:birch_planks",
+    "Y": "minecraft:chest"
+  },
+  "result": {
+    "id": "minecraft:birch_chest_boat",
+    "count": 1
+  }
+}

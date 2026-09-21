@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "X  ",
+    "XX ",
+    "XXX"
+  ],
+  "key": {
+    "X": "#minecraft:bamboo_blocks"
+  },
+  "result": {
+    "id": "minecraft:bamboo_stairs",
+    "count": 8
+  }
+}
