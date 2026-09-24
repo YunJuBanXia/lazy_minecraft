@@ -1,5 +1,7 @@
 # lazy_minecraft
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 <p align="center">
   <b>中文</b> | <a href="./README_EN.md">English</a>
 </p>

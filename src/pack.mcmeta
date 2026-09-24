@@ -1,0 +1,21 @@
+{
+  "pack": {
+    "pack_format": 71,
+    "description": [
+      {
+        "text": "lazy_minecraft",
+        "color": "gold",
+        "bold": true
+      },
+      {
+        "text": "\nA datapack for saving time from repetition, especially when unnecessary and tiresome",
+        "color": "yellow"
+      },
+      {
+        "text": "\nLicensed under GPL-3.0 by half__summer",
+        "color": "dark_gray",
+        "italic": true
+      }
+    ]
+  }
+}
