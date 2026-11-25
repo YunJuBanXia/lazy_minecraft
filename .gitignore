@@ -4,3 +4,6 @@
 *.md
 !README.md
 !README_*.md
+website/node_modules
+website/dist
+website/public/generated
