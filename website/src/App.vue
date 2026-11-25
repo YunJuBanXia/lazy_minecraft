@@ -116,19 +116,21 @@ const visible = computed(() => {
           "
           class="ui-control min-w-48 flex-1 rounded border px-3 py-1.5 text-sm outline-none focus:border-sky-300"
         />
-        <label
+        <div
           class="flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-300"
         >
-          {{ lang === "zh" ? "版本" : "Version" }}
+          <!-- 不使用 label 包裹, 否则悬停在文字上会触发下拉框的 :hover -->
+          <span>{{ lang === "zh" ? "版本" : "Version" }}</span>
           <select
             v-model="version"
+            :aria-label="lang === 'zh' ? '版本' : 'Version'"
             class="ui-button rounded border px-2 py-1.5"
           >
             <option v-for="v in versions" :key="v" :value="v">
               {{ v }}
             </option>
           </select>
-        </label>
+        </div>
         <button
           class="ui-button rounded border px-3 py-1.5 text-sm hover:border-sky-300"
           @click="lang = lang === 'zh' ? 'en' : 'zh'"
