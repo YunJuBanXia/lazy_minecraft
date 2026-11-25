@@ -6,29 +6,23 @@
   <a href="./README.md">中文</a> | <b>English</b>
 </p>
 
-This project was inspired by the "Lazy Crafting" datapack from [Xekr's column](https://www.bilibili.com/opus/565791108653279073). Since the original pack didn't fully meet my needs, I created this customized version.
-
-> **Note:** Currently, this datapack is only tested and supported on **Java Edition 1.21.5**.
+This project is inspired by the Lazy Crafting datapack from [Xekr's column](https://www.bilibili.com/opus/565791108653279073). Since the original datapack did not fully meet my personal needs, I created this project myself.
+Currently, this project only supports Java Edition 1.21.5.
 
 ## Overview
 
-- **Streamlined Recipes:** Vanilla-equivalent crafting recipes that require fewer steps or offer greater convenience.
-- **Expanded Loot:** Fishable Elytras, Sponges, and Hearts of the Sea — _so you don't have to inflate your world save size just by exploring for rare items._
-- **Budding Amethyst Mining:** Budding Amethyst blocks can now be mined and dropped using a Silk Touch pickaxe.
+- Vanilla-equivalent recipes that are simpler and require fewer crafting steps
+- Chance to fish up Elytra, Sponges, and Hearts of the Sea ~~I'm sure you don't want to bloat your world save just by exploring for these~~
+- Mining Budding Amethyst with a Silk Touch pickaxe drops the Budding Amethyst block itself
 
 ## Roadmap
 
-- [ ] Find a better way to showcase all recipes and features comprehensively (e.g., GitHub Wiki).
-- [ ] Research and add more quality-of-life recipes and vanilla-friendly mechanics.
-- [ ] Implement automated testing (because manual testing is exhausting!).
-- [ ] Support and adapt to more Minecraft versions.
+- [ ] Find and add more suitable recipes and features
+- [ ] Figure out a proper way to implement automated testing—manual testing is way too unhealthy
+- [ ] Support more Minecraft versions
 
 ## Disclaimer
 
-This is an unofficial fan project and is not affiliated with Mojang Studios or Microsoft. The Minecraft name, textures, models and other game assets are the property of Mojang Studios and Microsoft.
+This project is an unofficial fan-made work and is not affiliated with Mojang Studios or Microsoft. All copyrights for Minecraft's name, textures, models, and other game assets belong to Mojang Studios and Microsoft.
 
-The game assets used by the recipe website are not included in this repository. They are downloaded from Mojang's official servers at build time.
-
----
-
-_Translated by Gemini 3.6 Flash._
+_Translated by Gemini 4 Neon._
