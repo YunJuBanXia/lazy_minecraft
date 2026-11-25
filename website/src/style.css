@@ -1,17 +1,31 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-mc: "Minecraft", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 
 html {
+  color-scheme: light;
+}
+
+html.dark {
   color-scheme: dark;
 }
 
 body {
-  @apply bg-zinc-900 text-zinc-100;
+  @apply bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100;
 }
 
 .pixelated {
   image-rendering: pixelated;
+}
+
+.ui-header {
+  @apply border-zinc-300 bg-zinc-100/95 dark:border-zinc-700 dark:bg-zinc-900/95;
+}
+
+.ui-control {
+  @apply border-zinc-300 bg-white text-zinc-800 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200;
 }

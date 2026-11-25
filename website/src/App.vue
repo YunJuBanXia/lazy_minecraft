@@ -2,7 +2,9 @@
 import Fuse from "fuse.js";
 import { computed, onMounted, ref, shallowRef, watch } from "vue";
 import type { Recipe, RecipeType } from "../shared/types";
+import GithubLink from "./components/GithubLink.vue";
 import RecipeCard from "./components/RecipeCard.vue";
+import ThemeToggle from "./components/ThemeToggle.vue";
 import { useCycleTicker } from "./composables/ticker";
 import {
   loadVersion,
@@ -99,26 +101,28 @@ const visible = computed(() => {
 
 <template>
   <div class="min-h-screen">
-    <header
-      class="sticky top-0 z-30 border-b border-zinc-700 bg-zinc-900/95 backdrop-blur"
-    >
+    <header class="ui-header sticky top-0 z-30 border-b backdrop-blur">
       <div
         class="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3"
       >
-        <h1 class="text-lg font-bold text-white">Lazy Minecraft</h1>
+        <h1 class="text-lg font-bold text-zinc-900 dark:text-white">
+          Lazy Minecraft
+        </h1>
         <input
           v-model="query"
           type="search"
           :placeholder="
             lang === 'zh' ? '搜索物品名称或 ID...' : 'Search items or IDs...'
           "
-          class="min-w-48 flex-1 rounded border border-zinc-600 bg-zinc-800 px-3 py-1.5 text-sm outline-none focus:border-sky-300"
+          class="ui-control min-w-48 flex-1 rounded border px-3 py-1.5 text-sm outline-none focus:border-sky-300"
         />
-        <label class="flex items-center gap-1.5 text-sm text-zinc-300">
+        <label
+          class="flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-300"
+        >
           {{ lang === "zh" ? "版本" : "Version" }}
           <select
             v-model="version"
-            class="rounded border border-zinc-600 bg-zinc-800 px-2 py-1.5"
+            class="ui-control rounded border px-2 py-1.5"
           >
             <option v-for="v in versions" :key="v" :value="v">
               JE {{ v }}
@@ -126,11 +130,13 @@ const visible = computed(() => {
           </select>
         </label>
         <button
-          class="rounded border border-zinc-600 bg-zinc-800 px-3 py-1.5 text-sm hover:border-sky-300"
+          class="ui-control rounded border px-3 py-1.5 text-sm hover:border-sky-300"
           @click="lang = lang === 'zh' ? 'en' : 'zh'"
         >
           {{ lang === "zh" ? "中文" : "English" }}
         </button>
+        <ThemeToggle :lang="lang" />
+        <GithubLink />
       </div>
     </header>
 
@@ -143,7 +149,7 @@ const visible = computed(() => {
           :class="
             typeFilter === f.value
               ? 'border-sky-300 bg-sky-300 text-sky-950'
-              : 'border-zinc-600 bg-zinc-800 text-zinc-300 hover:border-sky-300'
+              : 'ui-control hover:border-sky-300'
           "
           @click="typeFilter = f.value"
         >
