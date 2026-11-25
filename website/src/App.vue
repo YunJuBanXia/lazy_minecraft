@@ -126,7 +126,10 @@ const visible = computed(() => {
             :aria-label="lang === 'zh' ? '版本' : 'Version'"
             class="ui-button h-[2.125rem] rounded border px-2"
           >
-            <button><selectedcontent></selectedcontent></button>
+            <!-- Vue 的嵌套校验不认 select 内的 button, 用动态组件绕过 warning, 后续可考虑优化 -->
+            <component :is="'button'"
+              ><selectedcontent></selectedcontent
+            ></component>
             <option v-for="v in versions" :key="v" :value="v">
               {{ v }}
             </option>
