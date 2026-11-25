@@ -53,15 +53,6 @@ const FACE_VERTICES: Record<
   ],
 };
 
-const SHADE: Record<Dir, number> = {
-  down: 0.5,
-  up: 1,
-  north: 0.8,
-  south: 0.8,
-  west: 0.6,
-  east: 0.6,
-};
-
 function defaultUv(dir: Dir, f: Vec3, t: Vec3): number[] {
   switch (dir) {
     case "down":
@@ -79,13 +70,15 @@ function defaultUv(dir: Dir, f: Vec3, t: Vec3): number[] {
   }
 }
 
+// 观察空间中的主光源方向, 由原版 GUI 方块图标的三个可见面亮度拟合得到
+const GUI_LIGHT = new THREE.Vector3(-0.25, 0.72, 0.75);
+const AMBIENT = 0.4;
+
+/** normal 须已变换到观察空间 */
 function shadeOf(normal: THREE.Vector3): number {
-  const { x, y, z } = normal;
-  const ax = Math.abs(x);
-  const ay = Math.abs(y);
-  const az = Math.abs(z);
-  if (ay >= ax && ay >= az) return y > 0 ? 1 : 0.5;
-  return az >= ax ? 0.8 : 0.6;
+  return (
+    AMBIENT + (1 - AMBIENT) * Math.min(1, Math.max(0, normal.dot(GUI_LIGHT)))
+  );
 }
 
 const textureCache = new Map<string, Promise<HTMLCanvasElement>>();
@@ -174,6 +167,16 @@ export async function renderModel(
   }
   renderer.setSize(size, size, false);
 
+  const rad = THREE.MathUtils.degToRad;
+  const guiRotation = new THREE.Matrix4().makeRotationFromEuler(
+    new THREE.Euler(
+      rad(spec.gui.rotation[0]),
+      rad(spec.gui.rotation[1]),
+      rad(spec.gui.rotation[2]),
+      "XYZ",
+    ),
+  );
+
   const scene = new THREE.Scene();
   const group = new THREE.Group();
   scene.add(group);
@@ -231,7 +234,9 @@ export async function renderModel(
         .subVectors(positions[1], positions[0])
         .cross(new THREE.Vector3().subVectors(positions[2], positions[1]))
         .normalize();
-      const shade = spec.flatLight ? 1 : shadeOf(normal);
+      const shade = spec.flatLight
+        ? 1
+        : shadeOf(normal.applyMatrix4(guiRotation));
       const tint =
         face.tintindex !== undefined && face.tintindex >= 0
           ? spec.tints[face.tintindex]
@@ -282,8 +287,7 @@ export async function renderModel(
     }
   }
 
-  const { rotation, translation, scale } = spec.gui;
-  const rad = THREE.MathUtils.degToRad;
+  const { translation, scale } = spec.gui;
   group.matrixAutoUpdate = false;
   group.matrix
     .makeTranslation(
@@ -291,16 +295,7 @@ export async function renderModel(
       translation[1] / 16,
       translation[2] / 16,
     )
-    .multiply(
-      new THREE.Matrix4().makeRotationFromEuler(
-        new THREE.Euler(
-          rad(rotation[0]),
-          rad(-rotation[1]),
-          rad(rotation[2]),
-          "XYZ",
-        ),
-      ),
-    )
+    .multiply(guiRotation)
     .multiply(new THREE.Matrix4().makeScale(...scale));
 
   const camera = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, -10, 10);
