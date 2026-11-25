@@ -37,11 +37,7 @@ const inputs = computed(() =>
 
 const title = computed(() => {
   const name = props.names.get(props.recipe.result.item);
-  const other = props.lang === "zh" ? "en" : "zh";
-  return {
-    primary: name?.[props.lang] ?? props.recipe.result.item,
-    secondary: name?.[other],
-  };
+  return name?.[props.lang] ?? props.recipe.result.item;
 });
 </script>
 
@@ -50,8 +46,7 @@ const title = computed(() => {
     class="flex flex-col gap-3 rounded-lg border border-zinc-700 bg-zinc-800/60 p-4"
   >
     <header>
-      <h2 class="text-base font-semibold">{{ title.primary }}</h2>
-      <p class="text-xs text-zinc-400">{{ title.secondary }}</p>
+      <h2 class="text-base font-semibold">{{ title }}</h2>
     </header>
     <div class="flex flex-1 items-center justify-center py-2">
       <div

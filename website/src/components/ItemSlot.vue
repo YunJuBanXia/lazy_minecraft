@@ -30,10 +30,8 @@ const current = computed(() =>
 const label = computed(() => {
   if (!current.value) return undefined;
   const name = props.names.get(current.value);
-  const other = props.lang === "zh" ? "en" : "zh";
   return {
-    primary: name?.[props.lang] ?? current.value,
-    secondary: name?.[other],
+    name: name?.[props.lang] ?? current.value,
     id: current.value,
   };
 });
@@ -58,7 +56,7 @@ const size = computed(() => 16 * props.scale);
     <img
       v-if="!failed.has(current)"
       :src="iconUrl(current)"
-      :alt="label?.primary"
+      :alt="label?.name"
       class="pixelated h-full w-full select-none"
       draggable="false"
       @error="failed.add(current)"
@@ -85,13 +83,10 @@ const size = computed(() => 16 * props.scale);
     ></div>
     <div
       v-if="label"
-      class="pointer-events-none absolute bottom-full left-1/2 mb-1 hidden w-max max-w-64 -translate-x-1/2 rounded border border-violet-500/70 bg-zinc-950/95 px-2 py-1 text-xs shadow-lg group-hover:block"
+      class="pointer-events-none absolute bottom-full left-1/2 mb-1 hidden w-max max-w-64 -translate-x-1/2 rounded border border-sky-300/70 bg-zinc-950/95 px-2 py-1 text-xs shadow-lg group-hover:block"
     >
       <div class="text-sm font-semibold text-zinc-50">
-        {{ label.primary }}
-      </div>
-      <div v-if="label.secondary !== label.primary" class="text-zinc-400">
-        {{ label.secondary }}
+        {{ label.name }}
       </div>
       <div class="text-zinc-500">{{ label.id }}</div>
       <div v-if="tag" class="mt-0.5 text-amber-300">

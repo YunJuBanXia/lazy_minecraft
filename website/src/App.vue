@@ -98,73 +98,84 @@ const visible = computed(() => {
 </script>
 
 <template>
-  <div class="mx-auto flex min-h-screen max-w-7xl flex-col gap-4 p-4">
+  <div class="min-h-screen">
     <header
-      class="sticky top-0 z-30 -mx-4 flex flex-wrap items-center gap-3 border-b border-zinc-700 bg-zinc-900/95 px-4 py-3 backdrop-blur"
+      class="sticky top-0 z-30 border-b border-zinc-700 bg-zinc-900/95 backdrop-blur"
     >
-      <h1 class="text-lg font-bold text-amber-400">lazy_minecraft</h1>
-      <input
-        v-model="query"
-        type="search"
-        :placeholder="
-          lang === 'zh' ? '搜索物品名称或 ID...' : 'Search items or IDs...'
-        "
-        class="min-w-48 flex-1 rounded border border-zinc-600 bg-zinc-800 px-3 py-1.5 text-sm outline-none focus:border-violet-500"
-      />
-      <label class="flex items-center gap-1.5 text-sm text-zinc-300">
-        {{ lang === "zh" ? "版本" : "Version" }}
-        <select
-          v-model="version"
-          class="rounded border border-zinc-600 bg-zinc-800 px-2 py-1.5"
-        >
-          <option v-for="v in versions" :key="v" :value="v">JE {{ v }}</option>
-        </select>
-      </label>
-      <button
-        class="rounded border border-zinc-600 bg-zinc-800 px-3 py-1.5 text-sm hover:border-violet-500"
-        @click="lang = lang === 'zh' ? 'en' : 'zh'"
+      <div
+        class="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3"
       >
-        {{ lang === "zh" ? "中文" : "English" }}
-      </button>
+        <h1 class="text-lg font-bold text-white">Lazy Minecraft</h1>
+        <input
+          v-model="query"
+          type="search"
+          :placeholder="
+            lang === 'zh' ? '搜索物品名称或 ID...' : 'Search items or IDs...'
+          "
+          class="min-w-48 flex-1 rounded border border-zinc-600 bg-zinc-800 px-3 py-1.5 text-sm outline-none focus:border-sky-300"
+        />
+        <label class="flex items-center gap-1.5 text-sm text-zinc-300">
+          {{ lang === "zh" ? "版本" : "Version" }}
+          <select
+            v-model="version"
+            class="rounded border border-zinc-600 bg-zinc-800 px-2 py-1.5"
+          >
+            <option v-for="v in versions" :key="v" :value="v">
+              JE {{ v }}
+            </option>
+          </select>
+        </label>
+        <button
+          class="rounded border border-zinc-600 bg-zinc-800 px-3 py-1.5 text-sm hover:border-sky-300"
+          @click="lang = lang === 'zh' ? 'en' : 'zh'"
+        >
+          {{ lang === "zh" ? "中文" : "English" }}
+        </button>
+      </div>
     </header>
 
-    <nav class="flex flex-wrap items-center gap-2 text-sm">
-      <button
-        v-for="f in TYPE_FILTERS"
-        :key="f.value"
-        class="rounded-full border px-3 py-1"
-        :class="
-          typeFilter === f.value
-            ? 'border-violet-500 bg-violet-600 text-white'
-            : 'border-zinc-600 bg-zinc-800 text-zinc-300 hover:border-violet-500'
-        "
-        @click="typeFilter = f.value"
-      >
-        {{ f[lang] }}
-      </button>
-      <span class="ml-auto text-zinc-500">
-        {{ visible.length }} {{ lang === "zh" ? "个配方" : "recipes" }}
-      </span>
-    </nav>
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 p-4">
+      <nav class="flex flex-wrap items-center gap-2 text-sm">
+        <button
+          v-for="f in TYPE_FILTERS"
+          :key="f.value"
+          class="rounded-full border px-3 py-1"
+          :class="
+            typeFilter === f.value
+              ? 'border-sky-300 bg-sky-300 text-sky-950'
+              : 'border-zinc-600 bg-zinc-800 text-zinc-300 hover:border-sky-300'
+          "
+          @click="typeFilter = f.value"
+        >
+          {{ f[lang] }}
+        </button>
+        <span class="ml-auto text-zinc-500">
+          {{ visible.length }} {{ lang === "zh" ? "个配方" : "recipes" }}
+        </span>
+      </nav>
 
-    <p v-if="error" class="text-red-400">{{ error }}</p>
-    <p v-else-if="!loaded" class="text-zinc-400">Loading...</p>
-    <p v-else-if="visible.length === 0" class="py-12 text-center text-zinc-500">
-      {{ lang === "zh" ? "没有匹配的配方" : "No recipes found" }}
-    </p>
-    <main
-      v-else
-      class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4"
-    >
-      <RecipeCard
-        v-for="recipe in visible"
-        :key="recipe.id"
-        :recipe="recipe"
-        :tags="loaded!.data.tags"
-        :names="loaded!.names"
-        :lang="lang"
-        :tick="tick"
-      />
-    </main>
+      <p v-if="error" class="text-red-400">{{ error }}</p>
+      <p v-else-if="!loaded" class="text-zinc-400">Loading...</p>
+      <p
+        v-else-if="visible.length === 0"
+        class="py-12 text-center text-zinc-500"
+      >
+        {{ lang === "zh" ? "没有匹配的配方" : "No recipes found" }}
+      </p>
+      <main
+        v-else
+        class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4"
+      >
+        <RecipeCard
+          v-for="recipe in visible"
+          :key="recipe.id"
+          :recipe="recipe"
+          :tags="loaded!.data.tags"
+          :names="loaded!.names"
+          :lang="lang"
+          :tick="tick"
+        />
+      </main>
+    </div>
   </div>
 </template>
