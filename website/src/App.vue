@@ -125,7 +125,7 @@ const visible = computed(() => {
             class="ui-control rounded border px-2 py-1.5"
           >
             <option v-for="v in versions" :key="v" :value="v">
-              JE {{ v }}
+              {{ v }}
             </option>
           </select>
         </label>
