@@ -47,8 +47,16 @@ a[href] {
     appearance: base-select;
   }
 
+  select {
+    align-items: center;
+  }
+
   select::picker-icon {
     content: "";
+    display: block;
+    align-self: center;
+    translate: 0 -1px;
+    margin-left: 0.5rem;
     width: 0.75em;
     height: 0.75em;
     background: currentColor;
