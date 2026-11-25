@@ -122,7 +122,7 @@ const visible = computed(() => {
           {{ lang === "zh" ? "版本" : "Version" }}
           <select
             v-model="version"
-            class="ui-control rounded border px-2 py-1.5"
+            class="ui-button rounded border px-2 py-1.5"
           >
             <option v-for="v in versions" :key="v" :value="v">
               {{ v }}
@@ -130,7 +130,7 @@ const visible = computed(() => {
           </select>
         </label>
         <button
-          class="ui-control rounded border px-3 py-1.5 text-sm hover:border-sky-300"
+          class="ui-button rounded border px-3 py-1.5 text-sm hover:border-sky-300"
           @click="lang = lang === 'zh' ? 'en' : 'zh'"
         >
           {{ lang === "zh" ? "中文" : "English" }}
@@ -149,7 +149,7 @@ const visible = computed(() => {
           :class="
             typeFilter === f.value
               ? 'border-sky-300 bg-sky-300 text-sky-950'
-              : 'ui-control hover:border-sky-300'
+              : 'ui-button hover:border-sky-300'
           "
           @click="typeFilter = f.value"
         >
