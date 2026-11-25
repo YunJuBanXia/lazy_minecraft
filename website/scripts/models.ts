@@ -232,7 +232,7 @@ function findChestTexture(node: any): string | undefined {
 
 // 实体贴图为 64x64, 面的 UV 以 16 为基准缩放
 const CHEST_UV_SCALE = 16 / 64;
-const CHEST_TOP_ROTATION = 90;
+const CHEST_TOP_ROTATION = 180;
 
 /** 箱子在原版由实体渲染器绘制, 这里按其模型结构还原为带 UV 的立方体 */
 function chestBox(
@@ -255,17 +255,16 @@ function chestBox(
     rotation,
   });
   // 实体模型的 y 轴向下, 因此贴图中的 down 区域对应世界中的顶面
-  // 锁扣面朝东, 相当于将所有面绕 y 轴转 90 度
   return {
     from,
     to,
     faces: {
       up: face(region(u + d + w, v, u + d + 2 * w, v + d), CHEST_TOP_ROTATION),
       down: face(region(u + d, v, u + d + w, v + d)),
-      east: face(region(u + d, v + d, u + d + w, v + d + h)),
-      south: face(region(u + d + w, v + d, u + 2 * d + w, v + d + h)),
-      west: face(region(u + 2 * d + w, v + d, u + 2 * d + 2 * w, v + d + h)),
-      north: face(region(u, v + d, u + d, v + d + h)),
+      south: face(region(u + d, v + d, u + d + w, v + d + h)),
+      west: face(region(u + d + w, v + d, u + 2 * d + w, v + d + h)),
+      north: face(region(u + 2 * d + w, v + d, u + 2 * d + 2 * w, v + d + h)),
+      east: face(region(u, v + d, u + d, v + d + h)),
     },
   };
 }
@@ -283,7 +282,7 @@ function planChest(name: string): IconSpec | undefined {
     elements: [
       chestBox([1, 0, 1], [15, 10, 15], [0, 19], [14, 10, 14], entity),
       chestBox([1, 9, 1], [15, 14, 15], [0, 0], [14, 5, 14], entity),
-      chestBox([15, 7, 7], [16, 11, 9], [0, 0], [2, 4, 1], entity),
+      chestBox([7, 7, 15], [9, 11, 16], [0, 0], [2, 4, 1], entity),
     ],
     gui: template?.gui
       ? {
