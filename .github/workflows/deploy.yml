@@ -7,7 +7,7 @@ on:
     paths:
       - "src/data/**"
       - "website/**"
-      - ".github/workflows/pages.yml"
+      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 permissions:
@@ -23,7 +23,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # 需要完整历史, 才能读取其他版本分支的配方
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
