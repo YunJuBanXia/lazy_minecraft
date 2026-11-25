@@ -23,6 +23,12 @@ This project was inspired by the "Lazy Crafting" datapack from [Xekr's column](h
 - [ ] Implement automated testing (because manual testing is exhausting!).
 - [ ] Support and adapt to more Minecraft versions.
 
+## Disclaimer
+
+This is an unofficial fan project and is not affiliated with Mojang Studios or Microsoft. The Minecraft name, textures, models and other game assets are the property of Mojang Studios and Microsoft.
+
+The game assets used by the recipe website are not included in this repository. They are downloaded from Mojang's official servers at build time.
+
 ---
 
 _Translated by Gemini 3.6 Flash._
