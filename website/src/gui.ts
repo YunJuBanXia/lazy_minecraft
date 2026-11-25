@@ -27,7 +27,8 @@ const CRAFTING_GRID = Array.from({ length: 9 }, (_, i) => ({
   y: 1 + Math.floor(i / 3) * 18,
 }));
 
-export const GUI_BACKGROUND = "#c6c6c6";
+// 容器背景九宫格的边框宽度, 单位为原版 GUI 贴图像素
+export const PANEL_BORDER = 3;
 
 const crafting: GuiLayout = {
   width: 116,

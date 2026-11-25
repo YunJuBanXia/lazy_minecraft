@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import type { Recipe } from "../../shared/types";
 import { guiUrl } from "../data";
-import { GUI_BACKGROUND, GUI_LAYOUTS, GUI_TEXTURE_SIZE } from "../gui";
+import { GUI_LAYOUTS, GUI_TEXTURE_SIZE, PANEL_BORDER } from "../gui";
 import type { Lang, NameMap } from "../types";
 import ItemSlot from "./ItemSlot.vue";
 
@@ -43,7 +43,13 @@ const title = computed(() => {
 
 <template>
   <article
-    class="flex flex-col gap-3 rounded-lg border border-zinc-700 bg-zinc-800/60 p-4"
+    class="pixelated flex flex-col gap-3 text-[#404040]"
+    :style="{
+      borderStyle: 'solid',
+      borderWidth: `${PANEL_BORDER * SCALE}px`,
+      borderImage: `url(${guiUrl('panel')}) ${PANEL_BORDER} fill / ${PANEL_BORDER * SCALE}px stretch`,
+      padding: `${SCALE * 3}px`,
+    }"
   >
     <header>
       <h2 class="text-base font-semibold">{{ title }}</h2>
@@ -54,7 +60,6 @@ const title = computed(() => {
         :style="{
           width: `${layout.width * SCALE}px`,
           height: `${layout.height * SCALE}px`,
-          background: GUI_BACKGROUND,
         }"
       >
         <div
@@ -96,11 +101,11 @@ const title = computed(() => {
         />
       </div>
     </div>
-    <footer class="flex items-center justify-between text-xs text-zinc-500">
-      <span class="rounded bg-zinc-700 px-1.5 py-0.5 text-zinc-200">
-        {{ TYPE_LABELS[recipe.type][lang] }}
-      </span>
-      <span class="truncate pl-2">{{ recipe.id }}</span>
+    <footer class="flex items-center justify-between text-xs">
+      <span class="shrink-0 font-semibold">{{
+        TYPE_LABELS[recipe.type][lang]
+      }}</span>
+      <span class="truncate pl-2 text-[#6b6b6b]">{{ recipe.id }}</span>
     </footer>
   </article>
 </template>
