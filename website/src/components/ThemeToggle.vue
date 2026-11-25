@@ -16,7 +16,7 @@ const { theme, toggle } = useTheme();
           ? '切换到浅色模式'
           : 'Switch to light mode'
         : lang === 'zh'
-          ? '切换到暗色模式'
+          ? '切换到深色模式'
           : 'Switch to dark mode'
     "
     :aria-label="theme === 'dark' ? 'Light mode' : 'Dark mode'"
