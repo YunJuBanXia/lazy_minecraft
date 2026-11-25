@@ -9,7 +9,7 @@ const { theme, toggle } = useTheme();
 
 <template>
   <button
-    class="ui-control flex h-8 w-8 items-center justify-center rounded border hover:border-sky-300"
+    class="ui-control flex h-8 w-8 items-center justify-center rounded-full border hover:border-sky-300"
     :title="
       theme === 'dark'
         ? lang === 'zh'

@@ -9,7 +9,7 @@ const REPOSITORY_URL = "https://github.com/YunJuBanXia/lazy_minecraft";
     rel="noopener noreferrer"
     title="GitHub"
     aria-label="GitHub"
-    class="ui-control flex h-8 w-8 items-center justify-center rounded border hover:border-sky-300"
+    class="ui-control flex h-8 w-8 items-center justify-center rounded-full border hover:border-sky-300"
   >
     <svg viewBox="0 0 16 16" class="h-4 w-4" fill="currentColor">
       <path
