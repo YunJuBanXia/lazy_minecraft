@@ -39,3 +39,36 @@ a[href] {
 .ui-button {
   @apply border-zinc-300 bg-white text-zinc-800 transition-colors duration-200 hover:bg-zinc-200 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700;
 }
+
+/* 可定制下拉框: 支持的浏览器中展开的选项列表可设置圆角, 不支持时回退为原生样式 */
+@supports (appearance: base-select) {
+  select,
+  ::picker(select) {
+    appearance: base-select;
+  }
+
+  ::picker(select) {
+    @apply mt-1 rounded-md border border-zinc-300 bg-white p-1 text-zinc-800;
+  }
+
+  .dark ::picker(select) {
+    @apply border-zinc-600 bg-zinc-800 text-zinc-200;
+  }
+
+  select option {
+    @apply cursor-pointer rounded px-2 py-1 text-sm;
+  }
+
+  select option:hover,
+  select option:focus-visible {
+    @apply bg-zinc-200 dark:bg-zinc-700;
+  }
+
+  select option:checked {
+    @apply bg-sky-300 text-sky-950;
+  }
+
+  select option::checkmark {
+    display: none;
+  }
+}
