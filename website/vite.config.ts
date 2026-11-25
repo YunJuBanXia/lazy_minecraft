@@ -4,5 +4,14 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   base: "./",
-  plugins: [vue(), tailwindcss()],
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag === "selectedcontent",
+        },
+      },
+    }),
+    tailwindcss(),
+  ],
 });

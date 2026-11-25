@@ -51,11 +51,16 @@ a[href] {
     align-items: center;
   }
 
+  /* 按数字高度裁剪行盒, 使文字在不同字体下都垂直居中 */
+  select selectedcontent {
+    display: block;
+    text-box: trim-both cap alphabetic;
+  }
+
   select::picker-icon {
     content: "";
     display: block;
     align-self: center;
-    translate: 0 -1px;
     margin-left: 0.5rem;
     width: 0.75em;
     height: 0.75em;

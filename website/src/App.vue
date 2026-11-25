@@ -124,8 +124,9 @@ const visible = computed(() => {
           <select
             v-model="version"
             :aria-label="lang === 'zh' ? '版本' : 'Version'"
-            class="ui-button rounded border px-2 py-1.5"
+            class="ui-button h-[2.125rem] rounded border px-2"
           >
+            <button><selectedcontent></selectedcontent></button>
             <option v-for="v in versions" :key="v" :value="v">
               {{ v }}
             </option>
