@@ -3,13 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate": "tsx scripts/build-data.ts",
-    "generate:force": "tsx scripts/build-data.ts --force",
+    "generate": "tsx scripts/fetch-assets.ts && tsx scripts/build-data.ts",
+    "generate:force": "tsx scripts/fetch-assets.ts && tsx scripts/build-data.ts --force",
     "dev": "pnpm generate && vite",
     "build": "pnpm generate && vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit",
-    "install:browser": "playwright install chromium"
+    "install:browser": "playwright install chromium",
+    "fetch:assets": "tsx scripts/fetch-assets.ts"
   },
   "dependencies": {
     "fuse.js": "^7.5.0",
@@ -22,6 +23,7 @@
     "@types/three": "^0.187.0",
     "@vitejs/plugin-vue": "^6.0.11",
     "esbuild": "^0.28.2",
+    "fflate": "^0.8.3",
     "playwright": "^1.65.1",
     "pngjs": "^7.0.0",
     "prettier": "^3.10.1",
@@ -31,5 +33,6 @@
     "typescript": "^5.9.3",
     "vite": "^8.3.8",
     "vue-tsc": "^3.3.14"
-  }
+  },
+  "packageManager": "pnpm@12.23.0"
 }
