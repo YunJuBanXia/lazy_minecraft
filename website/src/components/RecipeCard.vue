@@ -2,11 +2,15 @@
 import { computed } from "vue";
 import type { Recipe } from "../../shared/types";
 import { guiUrl } from "../data";
-import { GUI_LAYOUTS, GUI_TEXTURE_SIZE, PANEL_BORDER } from "../gui";
+import {
+  GUI_LAYOUTS,
+  GUI_SCALE as SCALE,
+  GUI_TEXTURE_SIZE,
+  PANEL_BORDER,
+  PANEL_PADDING,
+} from "../gui";
 import type { Lang, NameMap } from "../types";
 import ItemSlot from "./ItemSlot.vue";
-
-const SCALE = 3;
 
 const props = defineProps<{
   recipe: Recipe;
@@ -48,7 +52,7 @@ const title = computed(() => {
       borderStyle: 'solid',
       borderWidth: `${PANEL_BORDER * SCALE}px`,
       borderImage: `url(${guiUrl('panel')}) ${PANEL_BORDER} fill / ${PANEL_BORDER * SCALE}px stretch`,
-      padding: `${SCALE * 3}px`,
+      padding: `${PANEL_PADDING * SCALE}px`,
     }"
   >
     <header>

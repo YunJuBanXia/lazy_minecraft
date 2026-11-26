@@ -12,6 +12,7 @@ import {
   recipeItems,
   type LoadedVersion,
 } from "./data";
+import { CARD_MIN_WIDTH } from "./gui";
 import type { Lang } from "./types";
 
 interface SearchEntry {
@@ -176,7 +177,10 @@ const visible = computed(() => {
       </p>
       <main
         v-else
-        class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4"
+        class="grid gap-4"
+        :style="{
+          gridTemplateColumns: `repeat(auto-fill, minmax(min(${CARD_MIN_WIDTH}px, 100%), 1fr))`,
+        }"
       >
         <RecipeCard
           v-for="recipe in visible"

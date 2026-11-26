@@ -94,3 +94,14 @@ export const GUI_LAYOUTS: Record<RecipeType, GuiLayout> = {
 };
 
 export const GUI_TEXTURE_SIZE = 256;
+
+export const GUI_SCALE = 3;
+
+// 配方卡片内边距, 单位为原版 GUI 贴图像素
+export const PANEL_PADDING = 3;
+
+// 卡片内的 GUI 为固定宽度, 网格列宽低于该值时 GUI 会溢出卡片
+export const CARD_MIN_WIDTH =
+  (Math.max(...Object.values(GUI_LAYOUTS).map((layout) => layout.width)) +
+    2 * (PANEL_BORDER + PANEL_PADDING)) *
+  GUI_SCALE;
