@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { Recipe } from "../../shared/types";
-import { guiUrl } from "../data";
-import {
-  GUI_LAYOUTS,
-  GUI_TEXTURE_SIZE,
-  PANEL_BORDER,
-  PANEL_PADDING,
-} from "../gui";
+import { GUI_LAYOUTS } from "../gui";
 import type { Lang, NameMap } from "../types";
+import GuiFrame from "./GuiFrame.vue";
 import ItemSlot from "./ItemSlot.vue";
+import McPanel from "./McPanel.vue";
 
 const props = defineProps<{
   recipe: Recipe;
@@ -46,40 +42,12 @@ const title = computed(() => {
 </script>
 
 <template>
-  <article
-    class="pixelated flex flex-col gap-3 text-[#404040]"
-    :style="{
-      borderStyle: 'solid',
-      borderWidth: `${PANEL_BORDER * scale}px`,
-      borderImage: `url(${guiUrl('panel')}) ${PANEL_BORDER} fill / ${PANEL_BORDER * scale}px stretch`,
-      padding: `${PANEL_PADDING * scale}px`,
-    }"
-  >
+  <McPanel :scale="scale">
     <header>
       <h2 class="text-base font-semibold">{{ title }}</h2>
     </header>
     <div class="flex flex-1 items-center justify-center py-2">
-      <div
-        class="relative"
-        :style="{
-          width: `${layout.width * scale}px`,
-          height: `${layout.height * scale}px`,
-        }"
-      >
-        <div
-          v-for="(sprite, i) in layout.sprites"
-          :key="i"
-          class="pixelated absolute"
-          :style="{
-            left: `${sprite.dx * scale}px`,
-            top: `${sprite.dy * scale}px`,
-            width: `${sprite.w * scale}px`,
-            height: `${sprite.h * scale}px`,
-            backgroundImage: `url(${guiUrl(sprite.texture)})`,
-            backgroundSize: `${GUI_TEXTURE_SIZE * scale}px`,
-            backgroundPosition: `${-sprite.sx * scale}px ${-sprite.sy * scale}px`,
-          }"
-        ></div>
+      <GuiFrame :layout="layout" :scale="scale">
         <ItemSlot
           v-for="(input, i) in inputs"
           :key="i"
@@ -103,7 +71,7 @@ const title = computed(() => {
           :lang="lang"
           :tick="tick"
         />
-      </div>
+      </GuiFrame>
     </div>
     <footer class="flex items-center justify-between text-xs">
       <span class="shrink-0 font-semibold">{{
@@ -111,5 +79,5 @@ const title = computed(() => {
       }}</span>
       <span class="truncate pl-2 text-[#6b6b6b]">{{ recipe.id }}</span>
     </footer>
-  </article>
+  </McPanel>
 </template>
