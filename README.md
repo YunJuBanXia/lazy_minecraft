@@ -1,8 +1,7 @@
 # lazy_minecraft
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Minecraft JE 1.21.11](https://img.shields.io/badge/Minecraft_JE-1.21.11-green.svg)](https://github.com/YunJuBanXia/lazy_minecraft/tree/main)
-[![Minecraft JE 1.21.5](https://img.shields.io/badge/Minecraft_JE-1.21.5-green.svg)](https://github.com/YunJuBanXia/lazy_minecraft/tree/1.21.5)
+[![Minecraft JE: 1.21.11 | 1.21.5](https://img.shields.io/badge/Minecraft_JE-1.21.11_%7C_1.21.5-green.svg)](https://github.com/YunJuBanXia/lazy_minecraft/releases)
 
 <p align="center">
   <b>中文</b> | <a href="./README_EN.md">English</a>
