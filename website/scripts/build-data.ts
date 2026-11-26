@@ -51,7 +51,7 @@ for (const { id, ref } of configs) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "recipes.json"), JSON.stringify(data));
   console.log(
-    `[data] ${id}: ${data.recipes.length} 个配方, ${data.items.length} 个物品`,
+    `[data] ${id}: ${data.recipes.length} 个配方, ${data.features.length} 个特性, ${data.items.length} 个物品`,
   );
   built.push(data);
 }

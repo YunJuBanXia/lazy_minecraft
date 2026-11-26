@@ -12,3 +12,5 @@ export const generatedDir = path.join(websiteDir, "public", "generated");
 export const recipeDir = "src/data/lazy_minecraft/recipe";
 export const itemTagDir = "data/minecraft/tags/item";
 export const langDir = "assets/minecraft/lang";
+export const lootTableDir = "src/data/minecraft/loot_table";
+export const vanillaLootTableDir = "data/minecraft/loot_table";

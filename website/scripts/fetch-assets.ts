@@ -18,6 +18,7 @@ const JAR_PREFIXES = [
   "assets/minecraft/textures/gui/container/",
   "assets/minecraft/textures/entity/chest/",
   "data/minecraft/tags/item/",
+  "data/minecraft/loot_table/",
 ];
 const LANGUAGES = ["en_us", "zh_cn"];
 
@@ -31,7 +32,10 @@ const version = versions[0].id;
 const complete = () =>
   LANGUAGES.every((l) =>
     fs.existsSync(path.join(repoRoot, `assets/minecraft/lang/${l}.json`)),
-  ) && fs.existsSync(path.join(repoRoot, "data/minecraft/tags/item"));
+  ) &&
+  ["data/minecraft/tags/item", "data/minecraft/loot_table"].every((dir) =>
+    fs.existsSync(path.join(repoRoot, dir)),
+  );
 
 async function getJson<T>(url: string): Promise<T> {
   const res = await fetch(url);

@@ -7,6 +7,7 @@ import type {
   VersionData,
 } from "../shared/types";
 import { resolveAlias } from "./aliases";
+import { buildFeatures, featureItems } from "./features";
 import { itemTagDir, langDir, recipeDir } from "./paths";
 import type { Source } from "./source";
 
@@ -155,7 +156,16 @@ export function buildVersionData(
     if (recipe) recipes.push(recipe);
   }
 
-  const itemIds = new Set<string>();
+  const zh = loadLang(resourceSource, "zh_cn");
+  const en = loadLang(resourceSource, "en_us");
+  // 原版战利品表不在仓库中, 旧分支通过 resourceSource 回退到工作区读取
+  const features = buildFeatures(recipeSource, resourceSource, (key, id) => ({
+    id,
+    zh: zh[key] ?? id,
+    en: en[key] ?? id,
+  }));
+
+  const itemIds = new Set<string>(featureItems(features));
   for (const r of recipes) {
     itemIds.add(r.result.item);
     for (const s of r.slots) {
@@ -168,8 +178,6 @@ export function buildVersionData(
     tagMembers[tag].forEach((i) => itemIds.add(i));
   }
 
-  const zh = loadLang(resourceSource, "zh_cn");
-  const en = loadLang(resourceSource, "en_us");
   const lookup = (lang: Record<string, string>, id: string) => {
     const key = stripNamespace(id);
     const alias = stripNamespace(resolveAlias(id));
@@ -187,5 +195,5 @@ export function buildVersionData(
     en: lookup(en, id),
   }));
 
-  return { version, recipes, items, tags: tagMembers };
+  return { version, recipes, features, items, tags: tagMembers };
 }

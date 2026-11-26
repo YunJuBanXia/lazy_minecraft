@@ -25,6 +25,7 @@
     "shared/**/*.ts",
     "scripts/**/*.ts",
     "render/**/*.ts",
+    "features.ts",
     "vite.config.ts"
   ]
 }
