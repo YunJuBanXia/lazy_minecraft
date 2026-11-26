@@ -9,7 +9,13 @@ import {
   useTemplateRef,
   watch,
 } from "vue";
-import type { Recipe, RecipeType } from "../shared/types";
+import type {
+  Feature,
+  FeatureCategory,
+  Recipe,
+  RecipeType,
+} from "../shared/types";
+import FeatureCard from "./components/FeatureCard.vue";
 import GithubLink from "./components/GithubLink.vue";
 import RecipeCard from "./components/RecipeCard.vue";
 import ThemeToggle from "./components/ThemeToggle.vue";
@@ -31,6 +37,13 @@ interface SearchEntry {
   id: string;
 }
 
+interface FeatureSearchEntry {
+  feature: Feature;
+  title: string[];
+  items: string[];
+  id: string;
+}
+
 const tick = useCycleTicker();
 const page = usePage();
 
@@ -43,6 +56,7 @@ const versions = ref<string[]>([]);
 const version = ref("");
 const lang = ref<Lang>((localStorage.getItem("lang") as Lang | null) ?? "zh");
 const typeFilter = ref<RecipeType | "all">("all");
+const categoryFilter = ref<FeatureCategory | "all">("all");
 const query = ref("");
 const loaded = shallowRef<LoadedVersion>();
 const error = ref("");
@@ -60,6 +74,16 @@ const TYPE_FILTERS: { value: RecipeType | "all"; zh: string; en: string }[] = [
   { value: "crafting_shaped", zh: "有序合成", en: "Shaped" },
   { value: "crafting_shapeless", zh: "无序合成", en: "Shapeless" },
   { value: "stonecutting", zh: "切石机", en: "Stonecutting" },
+];
+
+const CATEGORY_FILTERS: {
+  value: FeatureCategory | "all";
+  zh: string;
+  en: string;
+}[] = [
+  { value: "all", zh: "全部", en: "All" },
+  { value: "fishing", zh: "钓鱼", en: "Fishing" },
+  { value: "block_drop", zh: "方块掉落", en: "Block Drop" },
 ];
 
 onMounted(async () => {
@@ -87,13 +111,14 @@ watch(version, async (v) => {
 
 watch(lang, (l) => localStorage.setItem("lang", l));
 
+const nameParts = (id: string) => {
+  const n = loaded.value?.names.get(id);
+  return n ? [id, n.zh, n.en] : [id];
+};
+
 const fuse = computed(() => {
   if (!loaded.value) return undefined;
-  const { data, names } = loaded.value;
-  const nameParts = (id: string) => {
-    const n = names.get(id);
-    return n ? [id, n.zh, n.en] : [id];
-  };
+  const { data } = loaded.value;
   const entries: SearchEntry[] = data.recipes.map((recipe) => ({
     recipe,
     id: recipe.id,
@@ -120,6 +145,43 @@ const visible = computed(() => {
   return typeFilter.value === "all"
     ? recipes
     : recipes.filter((r) => r.type === typeFilter.value);
+});
+
+const featureFuse = computed(() => {
+  if (!loaded.value) return undefined;
+  const entries: FeatureSearchEntry[] = loaded.value.data.features.map(
+    (feature) => ({
+      feature,
+      id: feature.id,
+      title: [feature.zh.title, feature.en.title],
+      items: [
+        feature.icon,
+        ...feature.pools.flatMap((p) =>
+          p.entries.filter((e) => e.current).map((e) => e.item),
+        ),
+      ].flatMap(nameParts),
+    }),
+  );
+  return new Fuse(entries, {
+    keys: [
+      { name: "title", weight: 3 },
+      { name: "items", weight: 2 },
+      { name: "id", weight: 1 },
+    ],
+    threshold: 0.3,
+    ignoreLocation: true,
+  });
+});
+
+const visibleFeatures = computed(() => {
+  if (!loaded.value || !featureFuse.value) return [];
+  const text = query.value.trim();
+  const features = text
+    ? featureFuse.value.search(text).map((r) => r.item.feature)
+    : loaded.value.data.features;
+  return categoryFilter.value === "all"
+    ? features
+    : features.filter((f) => f.category === categoryFilter.value);
 });
 </script>
 
@@ -235,9 +297,53 @@ const visible = computed(() => {
           />
         </main>
       </template>
-      <p v-else class="py-12 text-center text-zinc-500">
-        {{ lang === "zh" ? "暂无特性" : "No features yet" }}
-      </p>
+      <template v-else>
+        <nav class="flex flex-wrap items-center gap-2 text-sm">
+          <button
+            v-for="f in CATEGORY_FILTERS"
+            :key="f.value"
+            class="rounded-full border px-3 py-1"
+            :class="
+              categoryFilter === f.value
+                ? 'border-sky-300 bg-sky-300 text-sky-950'
+                : 'ui-button hover:border-sky-300'
+            "
+            @click="categoryFilter = f.value"
+          >
+            {{ f[lang] }}
+          </button>
+          <span class="ml-auto text-zinc-500">
+            {{ visibleFeatures.length }}
+            {{ lang === "zh" ? "个特性" : "features" }}
+          </span>
+        </nav>
+        <p
+          v-if="visibleFeatures.length === 0"
+          class="py-12 text-center text-zinc-500"
+        >
+          {{ lang === "zh" ? "没有匹配的特性" : "No features found" }}
+        </p>
+        <main
+          v-else
+          class="grid grid-flow-dense gap-4"
+          :style="{
+            gridTemplateColumns: `repeat(auto-fill, minmax(${cardMinWidth(guiScale)}px, 1fr))`,
+          }"
+        >
+          <!-- 钓鱼概率表较宽, 独占一行 -->
+          <FeatureCard
+            v-for="feature in visibleFeatures"
+            :key="feature.id"
+            :class="feature.fishing && 'col-span-full'"
+            :feature="feature"
+            :tags="loaded!.data.tags"
+            :names="loaded!.names"
+            :lang="lang"
+            :tick="tick"
+            :scale="guiScale"
+          />
+        </main>
+      </template>
     </div>
   </div>
 </template>

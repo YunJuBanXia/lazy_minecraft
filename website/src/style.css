@@ -28,6 +28,21 @@ a[href] {
   image-rendering: pixelated;
 }
 
+.feature-description {
+  & strong {
+    @apply font-semibold text-[#202020];
+  }
+  & a {
+    @apply underline;
+  }
+  & code {
+    @apply rounded-sm bg-[#b0b0b0] px-1 font-mono;
+  }
+  & > * + * {
+    @apply mt-2;
+  }
+}
+
 .ui-header {
   @apply border-zinc-300 bg-zinc-100/95 dark:border-zinc-700 dark:bg-zinc-900/95;
 }
