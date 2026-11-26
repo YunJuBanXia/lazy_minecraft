@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
-import { computed, onMounted, ref, shallowRef, watch } from "vue";
+import {
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  shallowRef,
+  useTemplateRef,
+  watch,
+} from "vue";
 import type { Recipe, RecipeType } from "../shared/types";
 import GithubLink from "./components/GithubLink.vue";
 import RecipeCard from "./components/RecipeCard.vue";
@@ -12,7 +20,7 @@ import {
   recipeItems,
   type LoadedVersion,
 } from "./data";
-import { CARD_MIN_WIDTH } from "./gui";
+import { cardMinWidth, fitGuiScale, MAX_GUI_SCALE } from "./gui";
 import type { Lang } from "./types";
 
 interface SearchEntry {
@@ -31,6 +39,14 @@ const typeFilter = ref<RecipeType | "all">("all");
 const query = ref("");
 const loaded = shallowRef<LoadedVersion>();
 const error = ref("");
+
+const content = useTemplateRef("content");
+const guiScale = ref(MAX_GUI_SCALE);
+const resizeObserver = new ResizeObserver(([entry]) => {
+  guiScale.value = fitGuiScale(entry.contentRect.width);
+});
+onMounted(() => resizeObserver.observe(content.value!));
+onBeforeUnmount(() => resizeObserver.disconnect());
 
 const TYPE_FILTERS: { value: RecipeType | "all"; zh: string; en: string }[] = [
   { value: "all", zh: "全部", en: "All" },
@@ -147,7 +163,7 @@ const visible = computed(() => {
       </div>
     </header>
 
-    <div class="mx-auto flex max-w-7xl flex-col gap-4 p-4">
+    <div ref="content" class="mx-auto flex max-w-7xl flex-col gap-4 p-4">
       <nav class="flex flex-wrap items-center gap-2 text-sm">
         <button
           v-for="f in TYPE_FILTERS"
@@ -179,7 +195,7 @@ const visible = computed(() => {
         v-else
         class="grid gap-4"
         :style="{
-          gridTemplateColumns: `repeat(auto-fill, minmax(min(${CARD_MIN_WIDTH}px, 100%), 1fr))`,
+          gridTemplateColumns: `repeat(auto-fill, minmax(${cardMinWidth(guiScale)}px, 1fr))`,
         }"
       >
         <RecipeCard
@@ -190,6 +206,7 @@ const visible = computed(() => {
           :names="loaded!.names"
           :lang="lang"
           :tick="tick"
+          :scale="guiScale"
         />
       </main>
     </div>

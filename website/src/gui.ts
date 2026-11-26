@@ -95,13 +95,24 @@ export const GUI_LAYOUTS: Record<RecipeType, GuiLayout> = {
 
 export const GUI_TEXTURE_SIZE = 256;
 
-export const GUI_SCALE = 3;
+export const MAX_GUI_SCALE = 3;
 
 // 配方卡片内边距, 单位为原版 GUI 贴图像素
 export const PANEL_PADDING = 3;
 
+const CARD_MIN_GUI_WIDTH =
+  Math.max(...Object.values(GUI_LAYOUTS).map((layout) => layout.width)) +
+  2 * (PANEL_BORDER + PANEL_PADDING);
+
 // 卡片内的 GUI 为固定宽度, 网格列宽低于该值时 GUI 会溢出卡片
-export const CARD_MIN_WIDTH =
-  (Math.max(...Object.values(GUI_LAYOUTS).map((layout) => layout.width)) +
-    2 * (PANEL_BORDER + PANEL_PADDING)) *
-  GUI_SCALE;
+export function cardMinWidth(scale: number) {
+  return CARD_MIN_GUI_WIDTH * scale;
+}
+
+// 仅使用整数倍缩放以保持像素清晰, 容器放不下最大缩放的卡片时逐级缩小
+export function fitGuiScale(containerWidth: number) {
+  for (let scale = MAX_GUI_SCALE; scale > 1; scale--) {
+    if (cardMinWidth(scale) <= containerWidth) return scale;
+  }
+  return 1;
+}

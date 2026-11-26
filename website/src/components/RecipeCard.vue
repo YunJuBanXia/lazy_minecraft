@@ -4,7 +4,6 @@ import type { Recipe } from "../../shared/types";
 import { guiUrl } from "../data";
 import {
   GUI_LAYOUTS,
-  GUI_SCALE as SCALE,
   GUI_TEXTURE_SIZE,
   PANEL_BORDER,
   PANEL_PADDING,
@@ -18,6 +17,7 @@ const props = defineProps<{
   names: NameMap;
   lang: Lang;
   tick: number;
+  scale: number;
 }>();
 
 const TYPE_LABELS: Record<Recipe["type"], { zh: string; en: string }> = {
@@ -50,9 +50,9 @@ const title = computed(() => {
     class="pixelated flex flex-col gap-3 text-[#404040]"
     :style="{
       borderStyle: 'solid',
-      borderWidth: `${PANEL_BORDER * SCALE}px`,
-      borderImage: `url(${guiUrl('panel')}) ${PANEL_BORDER} fill / ${PANEL_BORDER * SCALE}px stretch`,
-      padding: `${PANEL_PADDING * SCALE}px`,
+      borderWidth: `${PANEL_BORDER * scale}px`,
+      borderImage: `url(${guiUrl('panel')}) ${PANEL_BORDER} fill / ${PANEL_BORDER * scale}px stretch`,
+      padding: `${PANEL_PADDING * scale}px`,
     }"
   >
     <header>
@@ -62,8 +62,8 @@ const title = computed(() => {
       <div
         class="relative"
         :style="{
-          width: `${layout.width * SCALE}px`,
-          height: `${layout.height * SCALE}px`,
+          width: `${layout.width * scale}px`,
+          height: `${layout.height * scale}px`,
         }"
       >
         <div
@@ -71,13 +71,13 @@ const title = computed(() => {
           :key="i"
           class="pixelated absolute"
           :style="{
-            left: `${sprite.dx * SCALE}px`,
-            top: `${sprite.dy * SCALE}px`,
-            width: `${sprite.w * SCALE}px`,
-            height: `${sprite.h * SCALE}px`,
+            left: `${sprite.dx * scale}px`,
+            top: `${sprite.dy * scale}px`,
+            width: `${sprite.w * scale}px`,
+            height: `${sprite.h * scale}px`,
             backgroundImage: `url(${guiUrl(sprite.texture)})`,
-            backgroundSize: `${GUI_TEXTURE_SIZE * SCALE}px`,
-            backgroundPosition: `${-sprite.sx * SCALE}px ${-sprite.sy * SCALE}px`,
+            backgroundSize: `${GUI_TEXTURE_SIZE * scale}px`,
+            backgroundPosition: `${-sprite.sx * scale}px ${-sprite.sy * scale}px`,
           }"
         ></div>
         <ItemSlot
@@ -86,7 +86,7 @@ const title = computed(() => {
           :slot="input.slot"
           :x="input.pos.x"
           :y="input.pos.y"
-          :scale="SCALE"
+          :scale="scale"
           :tags="tags"
           :names="names"
           :lang="lang"
@@ -97,7 +97,7 @@ const title = computed(() => {
           :x="layout.output.x"
           :y="layout.output.y"
           :count="recipe.result.count"
-          :scale="SCALE"
+          :scale="scale"
           :tags="tags"
           :names="names"
           :lang="lang"
