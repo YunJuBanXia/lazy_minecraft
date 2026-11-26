@@ -13,6 +13,7 @@ import type { Recipe, RecipeType } from "../shared/types";
 import GithubLink from "./components/GithubLink.vue";
 import RecipeCard from "./components/RecipeCard.vue";
 import ThemeToggle from "./components/ThemeToggle.vue";
+import { usePage, type Page } from "./composables/page";
 import { useCycleTicker } from "./composables/ticker";
 import {
   loadVersion,
@@ -31,6 +32,12 @@ interface SearchEntry {
 }
 
 const tick = useCycleTicker();
+const page = usePage();
+
+const PAGES: { value: Page; zh: string; en: string }[] = [
+  { value: "recipes", zh: "配方", en: "Recipes" },
+  { value: "features", zh: "特性", en: "Features" },
+];
 
 const versions = ref<string[]>([]);
 const version = ref("");
@@ -164,51 +171,73 @@ const visible = computed(() => {
     </header>
 
     <div ref="content" class="mx-auto flex max-w-7xl flex-col gap-4 p-4">
-      <nav class="flex flex-wrap items-center gap-2 text-sm">
+      <div
+        role="tablist"
+        class="ui-control flex self-start rounded-lg border p-1 text-sm font-semibold"
+      >
         <button
-          v-for="f in TYPE_FILTERS"
-          :key="f.value"
-          class="rounded-full border px-3 py-1"
+          v-for="p in PAGES"
+          :key="p.value"
+          role="tab"
+          :aria-selected="page === p.value"
+          class="rounded-md px-5 py-1.5 transition-colors duration-200"
           :class="
-            typeFilter === f.value
-              ? 'border-sky-300 bg-sky-300 text-sky-950'
-              : 'ui-button hover:border-sky-300'
+            page === p.value
+              ? 'bg-sky-300 text-sky-950'
+              : 'hover:bg-zinc-200 dark:hover:bg-zinc-700'
           "
-          @click="typeFilter = f.value"
+          @click="page = p.value"
         >
-          {{ f[lang] }}
+          {{ p[lang] }}
         </button>
-        <span class="ml-auto text-zinc-500">
-          {{ visible.length }} {{ lang === "zh" ? "个配方" : "recipes" }}
-        </span>
-      </nav>
+      </div>
 
       <p v-if="error" class="text-red-400">{{ error }}</p>
       <p v-else-if="!loaded" class="text-zinc-400">Loading...</p>
-      <p
-        v-else-if="visible.length === 0"
-        class="py-12 text-center text-zinc-500"
-      >
-        {{ lang === "zh" ? "没有匹配的配方" : "No recipes found" }}
+      <template v-else-if="page === 'recipes'">
+        <nav class="flex flex-wrap items-center gap-2 text-sm">
+          <button
+            v-for="f in TYPE_FILTERS"
+            :key="f.value"
+            class="rounded-full border px-3 py-1"
+            :class="
+              typeFilter === f.value
+                ? 'border-sky-300 bg-sky-300 text-sky-950'
+                : 'ui-button hover:border-sky-300'
+            "
+            @click="typeFilter = f.value"
+          >
+            {{ f[lang] }}
+          </button>
+          <span class="ml-auto text-zinc-500">
+            {{ visible.length }} {{ lang === "zh" ? "个配方" : "recipes" }}
+          </span>
+        </nav>
+        <p v-if="visible.length === 0" class="py-12 text-center text-zinc-500">
+          {{ lang === "zh" ? "没有匹配的配方" : "No recipes found" }}
+        </p>
+        <main
+          v-else
+          class="grid gap-4"
+          :style="{
+            gridTemplateColumns: `repeat(auto-fill, minmax(${cardMinWidth(guiScale)}px, 1fr))`,
+          }"
+        >
+          <RecipeCard
+            v-for="recipe in visible"
+            :key="recipe.id"
+            :recipe="recipe"
+            :tags="loaded!.data.tags"
+            :names="loaded!.names"
+            :lang="lang"
+            :tick="tick"
+            :scale="guiScale"
+          />
+        </main>
+      </template>
+      <p v-else class="py-12 text-center text-zinc-500">
+        {{ lang === "zh" ? "暂无特性" : "No features yet" }}
       </p>
-      <main
-        v-else
-        class="grid gap-4"
-        :style="{
-          gridTemplateColumns: `repeat(auto-fill, minmax(${cardMinWidth(guiScale)}px, 1fr))`,
-        }"
-      >
-        <RecipeCard
-          v-for="recipe in visible"
-          :key="recipe.id"
-          :recipe="recipe"
-          :tags="loaded!.data.tags"
-          :names="loaded!.names"
-          :lang="lang"
-          :tick="tick"
-          :scale="guiScale"
-        />
-      </main>
     </div>
   </div>
 </template>
