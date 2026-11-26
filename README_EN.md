@@ -1,18 +1,19 @@
 # lazy_minecraft
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Minecraft JE 1.21.11](https://img.shields.io/badge/Minecraft_JE-1.21.11-green.svg)](https://github.com/YunJuBanXia/lazy_minecraft/tree/main)
+[![Minecraft JE 1.21.5](https://img.shields.io/badge/Minecraft_JE-1.21.5-green.svg)](https://github.com/YunJuBanXia/lazy_minecraft/tree/1.21.5)
 
 <p align="center">
   <a href="./README.md">中文</a> | <b>English</b>
 </p>
 
 This project is inspired by the Lazy Crafting datapack from [Xekr's column](https://www.bilibili.com/opus/565791108653279073). Since the original datapack did not fully meet my personal needs, I created this project myself.
-Currently, this project only supports Java Edition 1.21.5 and 1.21.11.
 
 ## Overview
 
 - Vanilla-equivalent recipes that are simpler and require fewer crafting steps
-- Chance to fish up Elytra, Sponges, and Hearts of the Sea ~~I'm sure you don't want to bloat your world save just by exploring for these~~
+- Chance to fish up Elytra, Wet Sponges, and Hearts of the Sea ~~I'm sure you don't want to bloat your world save just by exploring for these~~
 - Mining Budding Amethyst with a Silk Touch pickaxe drops the Budding Amethyst block itself
 
 ## Roadmap
